@@ -12,6 +12,7 @@
 최대값을 갖고 있다가 비교해서 갈아치우도록
 
 겹치지 않도록 마스킹했던 g를 다시 G로 바꿀 때 뭔가 문제가 있는 것 같은데 잘 모르겠다
+-> [i - r][j] => [i][j - r] 오타 수정
 
  */
 
@@ -46,7 +47,7 @@ function twoPluses(grid) {
                 borderedGrid[i + r][j] = 'g';
                 borderedGrid[i - r][j] = 'g';
                 borderedGrid[i][j + r] = 'g';
-                borderedGrid[i - r][j] = 'g';
+                borderedGrid[i][j - r] = 'g';
 
                 // iterate for second plus
                 for (let k = 1; k < borderedGrid.length; k++) {
@@ -72,22 +73,22 @@ function twoPluses(grid) {
             }
 
             // revert back all the occupied cells
-            //r = 0;
-            //while (borderedGrid[i + r][j] === 'g' && borderedGrid[i - r][j] === 'g' && borderedGrid[i][j + r] === 'g' && borderedGrid[i][j - r] === 'g') {
-            //    borderedGrid[i + r][j] = 'G';
-            //    borderedGrid[i - r][j] = 'G';
-            //    borderedGrid[i][j + r] = 'G';
-            //    borderedGrid[i - r][j] = 'G';
-            //    r++;
-            //}
-
-			for(let i =1; i<borderedGrid.length; i++) {
-                for(let j=1; j<borderedGrid[0].length; j++) {
-                    if(borderedGrid[i][j] === 'g') {
-                        borderedGrid[i][j] = 'G'
-                    }
-                }
+            r = 0;
+            while (borderedGrid[i + r][j] === 'g' && borderedGrid[i - r][j] === 'g' && borderedGrid[i][j + r] === 'g' && borderedGrid[i][j - r] === 'g') {
+                borderedGrid[i + r][j] = 'G';
+                borderedGrid[i - r][j] = 'G';
+                borderedGrid[i][j + r] = 'G';
+                borderedGrid[i][j - r] = 'G';
+                r++;
             }
+
+            //for(let i =1; i<borderedGrid.length; i++) {
+            //    for(let j=1; j<borderedGrid[0].length; j++) {
+            //        if(borderedGrid[i][j] === 'g') {
+            //            borderedGrid[i][j] = 'G'
+            //        }
+            //    }
+            //}
         }
     }
     return answer
