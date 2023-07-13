@@ -1,3 +1,5 @@
+// 어제 보니까 소스를 잘못 옮겨서 이상하게 동작했었네
+// 용케 넘어갔다 진짜
 var cancellable = function (fn, args, t) {
   const cancelFunction = () => {
     clearTimeout(timer);
@@ -27,42 +29,23 @@ const log = (...argsArr) => {
     time: diff,
     returned: fn(...argsArr),
   });
-
-  // cancellable의 함수로 fn이 아니라 log가 들어간다
-  // 그래서 t 시간마다 log 함수가 실행됨
-  const cancel = cancellable(log, args, t);
-  // cancellable의 리턴값이 cancelFunction이니까 log가 실행되면 cancellable도 실행됨
-
-  setTimeout(() => {
-    cancel();
-  }, cancelT);
-
-  // t < cancelT일때는 매 t마다 실행이 되고
-  // t > cancelT일 때는 cancellable 내부에서 log함수가 실행되지 않음
-
-  const maxT = Math.max(t, cancelT);
-  //const maxT = t;
-
-  setTimeout(() => {
-    console.log(result); // [{"time":20,"returned":10}]
-  }, maxT + 1);
 };
 
-cancellable(log, args, t);
+// cancellable의 함수로 fn이 아니라 log가 들어간다
+// 그래서 t 시간마다 log 함수가 실행됨
+const cancel = cancellable(log, args, t);
+// cancellable의 리턴값이 cancelFunction이니까 log가 실행되면 cancellable도 실행됨
 
-/**
- * 타임라인 대충 정리해보면
- * log: log함수
- * console : 로그 함수 내 console.log
- * 1
- * 2 : log(1) 실행
- * 3
- * 4 : log(2) 실행
- * 5
- * 6 : log(3) 실행
- * 7 : console(1) 실행
- * 8
- * 9 : console(2) 실행
- * 10
- * 11 : console(3) 실행
- */
+setTimeout(() => {
+  cancel();
+}, cancelT);
+
+// t < cancelT일때는 매 t마다 실행이 되고
+// t > cancelT일 때는 cancellable 내부에서 log함수가 실행되지 않음
+
+const maxT = Math.max(t, cancelT);
+//const maxT = t;
+
+setTimeout(() => {
+  console.log(result); // [{"time":20,"returned":10}]
+}, maxT + 1);
