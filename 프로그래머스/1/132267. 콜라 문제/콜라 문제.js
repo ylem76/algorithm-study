@@ -1,20 +1,18 @@
 function solution(a, b, n) {
-    var answer = 0;
-    const arr = []
     
-    let initialCokes = Math.floor(n / a) * b;
-    arr.push(initialCokes + n % a);
-    answer += initialCokes;
+    let initialCokes = Math.floor(n/a) * b;
+    let currentCokes = initialCokes + n%a;
+    let answer = initialCokes;
+
     
-    while(arr[arr.length-1] >= a) {
-        let newCokes = Math.floor(arr[arr.length - 1] / a) * b;
+    while(currentCokes >= a) {
+        
+        const newCokes = Math.floor(currentCokes/a)*b;
+        const namuji = currentCokes%a;
+        
         answer += newCokes;
-        arr.push(newCokes + arr[arr.length - 1] % a);
+        currentCokes = newCokes + namuji
     }
     
-    
-    console.log(arr)
-        
-        
     return answer;
 }
