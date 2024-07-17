@@ -1,5 +1,5 @@
 function solution(s) {
-    
+    // 숫자 별 테이블
     const table = {
         'zero' : 0,	
         'one' : 1,
@@ -16,15 +16,15 @@ function solution(s) {
     
     var answer = '';
     
-    let tempStr = ''
-    const strArr = s.split('')
+    let tempStr = '';
+    const strArr = s.split('');
     for(let i=0; i<strArr.length; i++) {
-        
-        if(Number(strArr[i]) || Number(strArr[i]) === 0) {
-            Number(strArr[i])
-            answer +=strArr[i];
+        // 0이 falsy한 값이라서 조건을 따로 써줘야함
+        if(Number(s[i]) || Number(s[i]) === 0) {
+            Number(s[i])
+            answer +=s[i];
         } else {
-            tempStr += strArr[i];
+            tempStr += s[i];
             if(table[tempStr] || table[tempStr] === 0) {
                 answer += table[tempStr];
                 tempStr = '';
